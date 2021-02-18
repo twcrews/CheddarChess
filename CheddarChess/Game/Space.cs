@@ -5,35 +5,39 @@ namespace CheddarChess.Game
     /// <summary>
     /// Represents a board space.
     /// </summary>
-    public struct Space
+    public class Space
     {
-        private const byte MIN_ROW_VALUE = 1;
-        private const byte MAX_ROW_VALUE = 8;
+        public const byte MIN_RANK_FILE_VALUE = 1;
+        public const byte MAX_RANK_FILE_VALUE = 8;
 
-        public Column Column { get; }
-        public byte Row { get; }
+        public File File { get; }
+        public byte Rank { get; }
+        public Piece Piece { get; set; }
 
-        public Space(Column column, byte row)
+        public Space(File file, byte rank)
         {
-            if (row < MIN_ROW_VALUE || row > MAX_ROW_VALUE)
+            if (rank < MIN_RANK_FILE_VALUE || rank > MAX_RANK_FILE_VALUE)
             {
-                throw new ArgumentException($"Row value must be between 1 and 8 (inclusive).");
+                throw new ArgumentException("Rank value must be between 1 and 8 (inclusive).");
             }
-            Column = column;
-            Row = row;
+            File = file;
+            Rank = rank;
         }
 
-        public byte HorizontalDistanceTo(Space otherSpace) => (byte)Math.Abs(Row - otherSpace.Row);
+        public string Symbol => $"{File.ToString().ToLower()}{Rank}";
+
+        public byte HorizontalDistanceTo(Space otherSpace) => 
+            (byte)Math.Abs(Rank - otherSpace.Rank);
         public byte VerticalDistanceTo(Space otherSpace) => 
-            (byte)Math.Abs(Column - otherSpace.Column);
+            (byte)Math.Abs(File - otherSpace.File);
         public byte DistanceTo(Space otherSpace) =>
             (byte)(HorizontalDistanceTo(otherSpace) + VerticalDistanceTo(otherSpace));
     }
 
     /// <summary>
-    /// Represents a board column.
+    /// Represents a board file.
     /// </summary>
-    public enum Column
+    public enum File
     {
         A = 1,
         B,

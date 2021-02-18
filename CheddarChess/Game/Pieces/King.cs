@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace CheddarChess.Game.Pieces
 {
@@ -10,10 +6,8 @@ namespace CheddarChess.Game.Pieces
     {
         public static string Name => "King";
         public static byte Value => 0;
+        public override char Symbol => Color == Color.White ? 'K' : 'k';
 
-        public King(Color color, Space space) : base(color, space) 
-        {
-            Name = "King";
-        }
+        public King(Color color) : base(color) { }
     }
 }
